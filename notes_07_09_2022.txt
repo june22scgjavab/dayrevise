@@ -417,3 +417,180 @@ public class Book{
 --------------------------------------------------------------------------------------
 this is used to represent the current object.
 this is also used for constructor chaining.
+------------------------------------------------------------------------------------------------------
+We have two zones of memory related to the progran/code.
+
+1) Stack=====> method info, local variables, reference variables 
+2) Heap ======> objects,arrays
+================================================================================================
+So the variables in the stack gets destroyed as soon as the scope of the variable ends.
+
+public class Demo {
+    public static void main(String[] args){
+     int num=10;
+   }
+}
+
+// The scope and lifetime of the variable num is restricted within the main method. 
+-----------------------------------------------------------------------------------------------
+The objects and arrays within the heap gets destroyed when the scope ends or we have other explicit
+ways also. So here we are talking about the scope of the reference variables which are holding the address for the objects.
+
+For memory management we have a concept called garbage collection. So garbage collection is the way by which in Java , the objects which are not in use are removed so that deallocation of memory can happen
+and deallocated memory can be re-used.
+
+
+public class Customer {
+	public String customerId;
+	public String customerName;
+	public long contactNumber;
+	public String address;
+	public Customer(String customerId, String customerName, long contactNumber,
+			String address) {
+		this.customerId = customerId;
+		this.customerName = customerName;
+		this.contactNumber = contactNumber;
+		this.address = address;
+	}
+	// Methods of this class
+}
+
+
+
+
+
+
+
+1. Customer customerObj = new Customer("C101", "Stephen", 7856341287L,
+				"D089, Louis Street, Springfield, 62729");
+
+
+2. customerObj=new Customer("C102", "John", 8856941385L,
+				"D090, Louis Street, Springfield, 70000");
+The object which got created in line1 is not used further and even in the line2 the reference variable
+is assigned with an address of a new object. So the object created in line is is eligible for 
+garbage collection. 
+
+--------------------------------------------------------------------------
+One object's address can be stored in multiple reference variables.
+1. Customer customerObj = new Customer("C101", "Stephen", 7856341287L,
+				"D089, Louis Street, Springfield, 62729");
+2. Customer customerObj2=customerObj; // The objects which we created line 1, that object's address
+is being refered by customerObj2 also. 
+3. Customer customerObj3=customerObj2;
+----------------------------------------------------------------------------------
+Case 1 We store the address of a newly created object in customerObj.
+1. Customer customerObj = new Customer("C101", "Stephen", 7856341287L,
+				"D089, Louis Street, Springfield, 62729");
+2 customerObj=null; // Assigning null to customerObj means currently customerObj is not having
+// reference for any object.
+--------------------------------------------------------------------------------
+1. Customer customerObj=null; // So the reference variable is not storing the address of any object.
+2. customerObj = new Customer("C101", "Stephen", 7856341287L,
+				"D089, Louis Street, Springfield, 62729");
+// In the above line customerObj is pointing/refering to the object created in line2 .
+3. customerObj=null;// customerObj is again not pointing to any object as we mentioned.
+  // as customerObj=null. ( null is undefined or unknown ).
+
+String str=null;
+1. Employee employee=null;
+2. employee=new Employee(); 
+In the above line the reference of the newly created object is stored in the reference variable 
+employee. 
+3. employee=null; Now once again employee is not pointing to any object and the object created in line
+2 is eligible for garbage collection.
+
+
+---------------------------------------------------------------------------------------------------
+
+1.Employee employee1=new Employee();
+2.Employee employee2=employee1;
+3.employee1=null; 
+
+Do you think the object which got created in line1 is eligible for garbage collection.
+Ans No.
+----------------------------------------------------------------------------------------------------
+
+public class Student {
+
+  private int roll;
+  private String name;
+  private int marks;
+
+}
+
+
+
+public class StudentMain{
+   public static void main(String[] args) {
+    Student student=new Student(); // The scope and lifetime is restricted to this method main.
+
+  }
+}
+
+-------------------------------------------------------------------------------------------------------
+Suppose both these codes are written in a single file and both the classes are public. Can we have
+two public classes in the same file?
+Ans: No because file name and class name should be same if the class is declared as public . Example if we have a class, public class Demo{} , in that case the file name will be also taken as Demo.java.
+If not done gives compilation error. In the below demo code, the file name is Tester.java but
+we have two public classes, Customer and another is Tester.
+Either you create a separate file for Customer or remove the public access from Customer.
+
+
+package com.infosys.encapsulation;
+public class Customer {
+	public String customerId;
+	public String customerName;
+	public long contactNumber;
+	public String address;
+    
+    public void displayCustomerDetails() {
+		System.out.println("Displaying customer details \n***********");
+		System.out.println("Customer Id : " + customerId);
+		System.out.println("Customer Name : " + customerName);
+		System.out.println("Contact Number : " + contactNumber);
+		System.out.println("Address : " + address);
+		System.out.println();
+	}
+}
+public class Tester {
+	public static void main(String args[]) {
+		Customer customer = new Customer();
+		customer.customerId = "C101";
+		customer.customerName = "Stephen Abram";
+		customer.contactNumber = 7856341287L;
+		customer.address = "D089, St. Louis Street, Springfield, 62729";
+		customer.displayCustomerDetails();
+	}
+}
+--------------------------------------------------------
+So the solution is removing public access with the class Customer.
+
+package com.infosys.encapsulation;
+class Customer {
+	public String customerId;
+	public String customerName;
+	public long contactNumber;
+	public String address;
+    
+    public void displayCustomerDetails() {
+		System.out.println("Displaying customer details \n***********");
+		System.out.println("Customer Id : " + customerId);
+		System.out.println("Customer Name : " + customerName);
+		System.out.println("Contact Number : " + contactNumber);
+		System.out.println("Address : " + address);
+		System.out.println();
+	}
+}
+public class Tester {
+	public static void main(String args[]) {
+		Customer customer = new Customer();
+		customer.customerId = "C101";
+		customer.customerName = "Stephen Abram";
+		customer.contactNumber = 7856341287L;
+		customer.address = "D089, St. Louis Street, Springfield, 62729";
+		customer.displayCustomerDetails();
+	}
+}
+
+----------------------------------------------------------------------------------------------------
