@@ -7,12 +7,18 @@ class Employee {
 	private int bonus;
 	private int jobLevel;
 	
+
 	
+
 	
+
 
 	public String getEmployeeId() {
 		return employeeId;
 	}
+
+
+
 
 
 
@@ -24,9 +30,15 @@ class Employee {
 
 
 
+
+
+
 	public String getEmployeeName() {
 		return employeeName;
 	}
+
+
+
 
 
 
@@ -38,9 +50,15 @@ class Employee {
 
 
 
+
+
+
 	public int getSalary() {
 		return salary;
 	}
+
+
+
 
 
 
@@ -52,9 +70,15 @@ class Employee {
 
 
 
+
+
+
 	public int getBonus() {
 		return bonus;
 	}
+
+
+
 
 
 
@@ -66,6 +90,9 @@ class Employee {
 
 
 
+
+
+
 	public int getJobLevel() {
 		return jobLevel;
 	}
@@ -73,9 +100,15 @@ class Employee {
 
 
 
+
+
+
 	public void setJobLevel(int jobLevel) {
 		this.jobLevel = jobLevel;
 	}
+
+
+
 
 
 

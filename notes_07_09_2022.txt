@@ -594,3 +594,7 @@ public class Tester {
 }
 
 ----------------------------------------------------------------------------------------------------
+
+The access modifiers
+
+private(most restrictive)========>default==========>protected=========>public(least restrictive)
