@@ -1,0 +1,419 @@
+Java is an object oriented language.Another approach of programming is procedural approach. 
+C programming follows procedural approach.
+
+Where we find the difference in procedural and object oriented approach?
+
+Ans:- In procedural approach concern is more towards solving a problem.
+Example is we have to add two numbers. 
+
+void main(){
+  int num1=10;
+  int num2=20;
+  int result=num1+num2;
+  printf("%d",result);
+}
+
+OR
+
+int add(int a,int b){
+int result=a+b;
+return result;
+}
+
+void main(){
+  int num1=10;
+  int num2=20;
+  int result=0;
+  result=add(num1,num2);
+  printf("%d",result);
+}
+// Can we have one more method call subtract?
+Ans is yes.
+int subtract(int a,int b){
+int result=a-b;
+return result;
+}
+
+int add(int a,int b){
+int result=a+b;
+return result;
+}
+
+void main(){
+  int num1=10;
+  int num2=20;
+  int result=0;
+  result=add(num1,num2);
+  printf("%d",result);
+  result=subtract(num1,num2);
+  printf("%d",result);
+ }
+
+}
+
+// Do we have any approach where we can keep the variables in such a location so that all the methods
+// are able to access them?
+Ans Yes. Declare the variables globally ( which means outside the functions).
+
+
+ int num1=10;
+ int num2=20;
+ int result=0;
+
+ int add(){
+  result=num1+num2;
+  return result;
+ }
+
+int subtract(){
+  result=num1-num2;
+  return result;
+}
+
+void main(){
+   result=add();
+   printf("%d",result);
+   num1=200;
+   num2=100;
+   result=subtract();
+   printf("%d",result);
+ }
+In the above approach we have a disadvantage. That is we have kept the data outside the methods. So 
+we risk in getting these variables accessed by some other methods which are not relevant.
+
+Example
+
+ calculator.c
+
+
+int num1=10;
+ int num2=20;
+ int result=0;
+
+ int add(){
+  result=num1+num2;
+  return result;
+ }
+
+ void inventoryControl(){
+  int stock=100;
+  num1=0;
+  num2=0;
+}
+
+int subtract(){
+  result=num1-num2;
+  return result;
+}
+
+void main(){
+   result=add();
+   printf("%d",result);
+   num1=200;
+   num2=100;
+   result=subtract();
+   printf("%d",result);
+ }
+// So in the above case we can see that we have one method called inventory control which is not having any relevance to calculations but then also it is able to access the numbers and make a change
+which is not expected. Here comes the concept of object oriented programming where we try to keep the'
+data secured within a unit and that unit is called as class.
+
+------------------------------------------------------------------------------------------------------
+
+
+class Number{
+// num1,num2,result are the instance variables,member variables,attributes of the Number class
+private int num1;
+private int num2;
+private int result;
+
+// add(),subtract(),multiply() are the member methods of the Number class
+ int add(){
+   result=num1+num2;
+   return result;
+ }
+
+ int subtract(){
+  result=num1-num2;
+  return result;
+ }
+
+ int multiply(){
+   result=num1*num2;
+   return result;
+ }
+
+}
+
+class Inventory{
+private int stock;
+
+ void inventoryControl(){
+  stock=100;
+  num1=0; // In this case we cannot access num1 and num2 because they are not the member of Inventory class
+  num2=0;
+}
+
+}
+
+
+In Object oriented programming we have class and within class we have member variable and member methods.
+-----------------------------------------------------------------------------------------------------
+package day3revise;
+
+// Everything local within the main method
+public class Student {
+
+	public static void main(String[] args) {
+	int roll=1;
+	String name="Ram";
+	int marks=80;
+    System.out.println(roll);
+    System.out.println(name);
+    System.out.println(marks);
+    roll=2;
+    name="Sita";
+    marks=90;
+    System.out.println(roll);
+    System.out.println(name);
+    System.out.println(marks);
+	}
+
+}
+
+-------------------------------------------------------------------------------------------------------
+
+Q As we created the two  book objects and both the objects are getting same set of data. Do we have any 
+other approach so that they dont get the same set of Data?
+
+package package2;
+
+public class Book {
+// bookId,bookTitle and bookPrice are instance variables,attributes
+int bookId;
+String bookTitle;
+float bookPrice;
+
+// setBookDetails, displayBookDetails are member methods
+void setBookDetails() {  
+	bookId=1;
+	bookTitle="Java";
+	bookPrice=340.56f;
+}
+void displayBookDetails() {
+	System.out.println(bookId);  //1
+  	System.out.println(bookTitle); //Java
+    System.out.println(bookPrice); //340.56
+}
+
+public static void main(String[] args) {
+	Book b1=new Book(); // This line can be further broken into two statements
+	// Book b1=null; ===> b1 is a reference variable of Book type and it can store the address of the newly created 
+	//book object and currently we are writing as null which means it is not pointing to any object
+	//b1=new Book();
+	b1.setBookDetails();
+	b1.displayBookDetails();
+	System.out.println("------------------------");
+	Book b2=new Book();
+	b2.setBookDetails();
+	b2.displayBookDetails();  
+	
+	}
+
+}
+---------------------------------------------------------------------------------------------------
+We can go for parameterized setBookDetails
+
+package package3;
+
+public class Book {
+// bookId,bookTitle and bookPrice are instance variables,attributes
+int bookId;
+String bookTitle;
+float bookPrice;
+
+// setBookDetails, displayBookDetails are member methods
+// we created a parameterized setDetails method
+void setBookDetails(int id,String title, float price) {  
+	bookId=id;
+	bookTitle=title;
+	bookPrice=price;
+}
+void displayBookDetails() {
+	System.out.println(bookId);  //1
+  	System.out.println(bookTitle); //Java
+    System.out.println(bookPrice); //340.56
+}
+
+public static void main(String[] args) {
+	Book b1=new Book(); 
+	b1.setBookDetails(1,"Java",500.56f);
+	b1.displayBookDetails();
+	System.out.println("------------------------");
+	Book b2=new Book();
+	b2.setBookDetails(2,"HTML",300);
+	b2.displayBookDetails();  
+	
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------
+Q Can we design multiple classes and put the main method in separate class?
+A Yes
+package package4;
+
+// declaring the members as private , wont allow the 
+// members to be accessed outside the class
+public class Book {
+private int bookId;
+private String bookTitle;
+private float price;
+
+// In the methods we are not using any access
+// specifier/modifier like private or public
+// so in that case the default modifier is default
+// or package specific modifier
+// default means the members are accessible in the same 
+// package as we will see that both Tester and Book class
+//are in same package so Tester will be able to access the
+// Book class's setBookDetails and displayBookDetails
+void setBookDetails(int id,String title, float prc)
+{
+	bookId=id;
+	bookTitle=title;
+	price=prc;
+}
+void displayBookDetails() {
+	System.out.println("The details for the book");
+	System.out.println("BOOK ID -:"+bookId);
+	System.out.println("BOOK TITLE -:"+bookTitle);
+	System.out.println("BOOK PRICE -:"+price);
+	
+}
+}
+
+
+package package4;
+
+public class Tester {
+
+	public static void main(String[] args) {
+	Book book=new Book();
+	//Tester and Book are two different classes
+	// To access the book class members we have
+	// to create an object of book
+	//book.bookId=1; //The field Book.bookId is not visible
+	book.setBookDetails(1,"Java", 500);
+	book.displayBookDetails();
+	}
+
+}
+----------------------------------------------------------------------------------------------------
+Q What I should use while setting the value for an object? Whether I should go for constructors or I should
+make use of setter methods.
+
+A some method should be used rather than constructor. Constructors are called once during the object creation.
+If we again write something like new Book(), a new object gets created. 
+
+
+package package5;
+
+public class Book {
+private int bookId;
+private String bookTitle;
+private float price;
+
+// Parameterless constructor/default constructor
+Book(){
+	bookId=0;
+	bookTitle=" ";
+	price=0;
+	System.out.println("I am the default constructor!!!!");
+}
+// Parameterised constructor
+Book(int id, String title, float prc){
+	bookId=id;
+	bookTitle=title;
+	price=prc;
+	System.out.println("I am the parameterized constructor");
+	
+}
+
+
+void setBookDetails(int id,String title, float prc)
+{
+	bookId=id;
+	bookTitle=title;
+	price=prc;
+	
+}
+void displayBookDetails() {
+	System.out.println("The details for the book");
+	System.out.println("BOOK ID -:"+bookId);
+	System.out.println("BOOK TITLE -:"+bookTitle);
+	System.out.println("BOOK PRICE -:"+price);
+	
+}
+}
+
+
+package package5;
+
+public class Tester {
+
+	public static void main(String[] args) {
+	Book book1=new Book(); // The parameterless constructor will be invoked
+    book1.displayBookDetails();// We are not executing the setBookDetails
+	Book book2=new Book(2,"CSS3",500); // The parameterised constructor is called
+	book2.displayBookDetails();
+	// I want to change all the details of book2 , so which one I should use constructor
+	// or setBookDetails() method or I can use any one of this
+	// Why setBookDetails() and why not constructor?
+	//book2=new Book(3,"DBMS",800);
+	// Is the above line changing the details of the book object created in line 8 or
+	//to be more specific , is it same object whose data we are changing?
+	// No ... In line 13 a new object got created and the object which got created in line8
+	// is longer used by the code
+	book2.setBookDetails(3, "DBMS",800);
+    book2.displayBookDetails();
+	}
+
+}
+
+
+-----------------------------------------------------------------------------------------------------
+Constructors:
+*Constructors are used for initialisation of the object.
+*Constructor will have the same name as that of the class name.
+*Constructor dont have any return type.
+*If we dont provide any constructor to our code, the default constructor is provided during the compilation time.
+* We can have both parameterised and non-parameterised constructors at the same time.Which means we can have 
+multiple constructors.
+------------------------------------------------------------------------------------
+Q We are observing that whenever you are passing parameters to construcors or methods,
+You are changing the name of the parameters and keeping it different from
+the instance variables.
+
+public class Book{
+ private int bookId;
+ private String bookTitle;
+ private float bookPrice;
+
+// In the parameterised constructor the parameter names and
+// the instance variable names are different. 
+// What will happen if we keep the name as same
+ Book(int id, String title, float price){
+   bookId=id;
+   bookTitle=title;
+   bookPrice=price;
+ } 
+
+ public void displayBook(){
+  System.out.println(bookId+"\n"+bookTitle+"\n"+bookPrice);
+
+ }
+
+}
+--------------------------------------------------------------------------------------
+this is used to represent the current object.
+this is also used for constructor chaining.
